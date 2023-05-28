@@ -1,0 +1,125 @@
+.restaurant-details-container {
+  display: flex;
+  background-image: url('https://res.cloudinary.com/pavankalyanbandaru/image/upload/v1651083504/tasty-kitchens/restaurant-banner-background.png');
+  margin-top: 2%;
+  margin-bottom: 24px;
+}
+.restaurant-details {
+  padding: 24px 16px;
+  align-self: center;
+}
+.restaurant-detail-image {
+  width: 160px;
+  height: 160px;
+  align-items: flex-start;
+  border-radius: 16px;
+}
+.restaurant-details-heading {
+  color: #ffffff;
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-style: Roboto;
+}
+.restaurant-details-cuisine {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+}
+
+.location {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+}
+.details-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+}
+
+.vertical-line {
+  margin-top: 15px;
+  width: 50px;
+  height: 0px;
+  border: 1px solid #e2e8f0;
+  transform: rotate(90deg);
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #ffffff;
+}
+
+.rating-star {
+  color: #ffffff;
+  margin-right: 5px;
+}
+.ratings {
+  font-family: DM Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 16px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+}
+
+.ratings-count {
+  font-family: DM Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+  color: #e2e8f0;
+  margin-top: 5px;
+}
+.cost {
+  color: #ffffff;
+  font-family: DM Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 16px;
+}
+.cost-for-two {
+  font-family: DM Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+  color: #e2e8f0;
+  margin-top: 5px;
+}
+.food-item-list {
+  margin-top: 3%;
+  margin-left: 10%;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+}
+@media screen and (min-width: 768px) {
+  .restaurant-details-container {
+    padding: 36px 48px;
+    margin-bottom: 36px;
+    align-items: center;
+  }
+  .restaurant-details {
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+  }
+
+  .restaurant-detail-image {
+    width: 380px;
+    height: auto;
+    aspect-ratio: 5/3.35;
+    border-radius: 16px;
+    margin-right: 5%;
+  }
+}
