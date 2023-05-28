@@ -1,176 +1,99 @@
-import {Link, withRouter} from 'react-router-dom'
-import Cookies from 'js-cookie'
-import Popup from 'reactjs-popup'
+import {Component} from 'react'
+import {withRouter, Link} from 'react-router-dom'
 
 import {GiHamburgerMenu} from 'react-icons/gi'
+import {AiFillCloseCircle} from 'react-icons/ai'
 
-import {IoCloseCircle} from 'react-icons/io5'
+import Cookies from 'js-cookie'
+
 import './index.css'
 
-const linkItems = [
-  {id: 0, path: 'Home', displayText: 'Home'},
-  {id: 1, path: 'Cart', displayText: 'Cart'},
-  {id: 2, displayText: 'Logout'},
-  {id: 3, path: 'Profile', displayText: 'Profile'},
-]
+import Logo from '../Images/Website login page logo.png'
 
-const Header = props => {
-  const onClickLogout = () => {
-    const {history} = props
-    console.log(props)
+class Header extends Component {
+  state = {
+    showNavItems: false,
+  }
+
+  toggleNavItems = () => {
+    this.setState(preState => ({
+      showNavItems: !preState.showNavItems,
+    }))
+  }
+
+  onClickLogout = () => {
     Cookies.remove('jwt_token')
+    const {history} = this.props
     history.replace('/login')
   }
 
-  const {activeTabId} = props
+  renderNavItemsContainer = mobileView => (
+    <ul className={`nav-items-container${mobileView}`}>
+      <li className="nav-item">
+        <Link className={this.getActiveClassName('/')} to="/">
+          Home
+        </Link>
+      </li>
 
-  const renderHamburgerPopup = () => (
-    <Popup
-      modal
-      trigger={
-        <button type="button" className="ham-button">
-          <GiHamburgerMenu size="25" />
+      <li className="nav-item">
+        <Link className={this.getActiveClassName('/cart')} to="/cart">
+          Cart
+        </Link>
+      </li>
+
+      <li className="nav-item">
+        <button
+          className="logout-button"
+          type="button"
+          onClick={this.onClickLogout}
+        >
+          Logout
         </button>
-      }
-      className="popup-content"
-    >
-      {close => (
-        <div className="mobile-popup">
-          <ul className="mobile-links">
-            <li key={linkItems[0].id} className="mbl-item">
-              <Link
-                to="/"
-                className={
-                  activeTabId === linkItems[0].path
-                    ? `link-mobile active-mobile`
-                    : 'link-mobile'
-                }
-              >
-                {linkItems[0].displayText}
-              </Link>
-            </li>
-            <li key={linkItems[1].id} className="mbl-item">
-              <Link
-                to="/cart"
-                className={
-                  activeTabId === linkItems[1].path
-                    ? `link-mobile active-mobile`
-                    : 'link-mobile'
-                }
-              >
-                {linkItems[1].displayText}
-              </Link>
-            </li>
-            <li key={linkItems[3].id} className="mbl-item">
-              <Link
-                to="/profile"
-                className={
-                  activeTabId === linkItems[3].path
-                    ? `link-mobile active-mobile`
-                    : 'link-mobile'
-                }
-              >
-                {linkItems[3].displayText}
-              </Link>
-            </li>
+      </li>
 
-            <li key={linkItems[2].id} className="mbl-item">
-              <button
-                className="mobile-logout"
-                type="button"
-                onClick={onClickLogout}
-              >
-                {linkItems[2].displayText}
-              </button>
-            </li>
-          </ul>
-          <button type="button" className="popup-close" onClick={() => close()}>
-            <IoCloseCircle size="20" color="#334155" />
+      <button
+        className="nav-button"
+        type="button"
+        onClick={this.toggleNavItems}
+      >
+        <AiFillCloseCircle className="close-icon" />
+      </button>
+    </ul>
+  )
+
+  getActiveClassName = path => {
+    const {match} = this.props
+    const currentPath = match.path
+    if (currentPath === path) {
+      return 'nav-item-active-link'
+    }
+    return 'nav-item-link'
+  }
+
+  render() {
+    const {showNavItems} = this.state
+
+    return (
+      <nav className="navbar">
+        <div className="logo-hamburger-container">
+          <Link className="website-logo-container" to="/">
+            <img className="website-logo" src={Logo} alt="website logo" />
+            <h1 className="website-title">Tasty Kitchens</h1>
+          </Link>
+
+          <button
+            type="button"
+            className="nav-button"
+            onClick={this.toggleNavItems}
+          >
+            <GiHamburgerMenu className="hamburger-icon" />
           </button>
         </div>
-      )}
-    </Popup>
-  )
-
-  return (
-    <nav className="nav-header">
-      <div className="nav-content-small">
-        <Link to="/" className="nav-link">
-          <div className="logo-name">
-            <img
-              alt="website logo"
-              src="https://res.cloudinary.com/dkwefqjnn/image/upload/v1660538080/TastyKitchens_logo_p3acpg.png"
-              className="header-logo"
-            />
-            <h1 className="header-heading">Tasty Kitchens</h1>
-          </div>
-        </Link>
-        <div className="nav-links-small">{renderHamburgerPopup()}</div>
-      </div>
-
-      <div className="nav-content-large">
-        <Link to="/" className="nav-link">
-          <div className="logo-large">
-            <img
-              alt="website logo"
-              src="https://res.cloudinary.com/dkwefqjnn/image/upload/v1660538080/TastyKitchens_logo_p3acpg.png"
-              className="header-logo-large"
-            />
-            <h1 className="header-heading">Tasty Kitchens</h1>
-          </div>
-        </Link>
-        <div className="links-large">
-          <ul className="nav-ul">
-            <li key={linkItems[0].id}>
-              <Link
-                to="/"
-                className={
-                  activeTabId === linkItems[0].path
-                    ? `link-item active-link`
-                    : 'link-item'
-                }
-              >
-                {linkItems[0].displayText}
-              </Link>
-            </li>
-            <li key={linkItems[1].id}>
-              <Link
-                to="/cart"
-                className={
-                  activeTabId === linkItems[1].path
-                    ? 'link-item active-link'
-                    : 'link-item'
-                }
-              >
-                {linkItems[1].displayText}
-              </Link>
-            </li>
-
-            <li key={linkItems[3].id}>
-              <Link
-                to="/profile"
-                className={
-                  activeTabId === linkItems[3].path
-                    ? 'link-item active-link'
-                    : 'link-item'
-                }
-              >
-                {linkItems[3].displayText}
-              </Link>
-            </li>
-            <li key={linkItems[2].id}>
-              <button
-                className="desktop-logout"
-                type="button"
-                onClick={onClickLogout}
-              >
-                {linkItems[2].displayText}
-              </button>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  )
+        {this.renderNavItemsContainer('')}
+        {showNavItems && this.renderNavItemsContainer('-mobile-view')}
+      </nav>
+    )
+  }
 }
+
 export default withRouter(Header)
